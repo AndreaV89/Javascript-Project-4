@@ -140,7 +140,7 @@ button {
 
 .wrong {
   /* background: #f7a964; */
-  background: red;
+  background: rgba(255, 0, 0, 0.3);
   color: #FFFFFF;
 }
 

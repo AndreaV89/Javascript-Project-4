@@ -57,9 +57,9 @@ class Game {
     handleInteraction(button) {
         console.log(button);
         button.disabled = 'true';
-        button.style.transition = 'transform 1s ease-in';
         if(this.activePhrase.checkLetter(button.innerText)) {
             button.classList.add('chosen');
+            button.style.transition = 'transform 1s ease-in';
             button.style.transform = 'scale(2,2)';
             setTimeout(() => button.style.transform = 'none', 300);
             this.activePhrase.showMatchedLetter(button.innerText);
@@ -68,7 +68,8 @@ class Game {
             }
         } else {
             button.classList.add('wrong');
-            button.style.transform = 'scale(0,0)';
+            button.style.transition = 'all .5s ease-in';
+            button.style.transform = 'rotateY(360deg)';
             this.removeLife();
         }
         

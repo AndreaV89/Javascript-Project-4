@@ -49,9 +49,9 @@ class Phrase {
         for(let i = 0; i < matchedLetters.length; i++) {
             matchedLetters[i].classList.remove('hide');
             matchedLetters[i].classList.add('show');
-            matchedLetters[i].style.transition = 'all .2s ease-in-out';
+            matchedLetters[i].style.transition = 'all .4s ease-in-out';
             matchedLetters[i].style.transform = 'scale(1.5,1.5)';
-            setTimeout(() => matchedLetters[i].style.transform = 'none', 200);
+            setTimeout(() => matchedLetters[i].style.transform = 'none', 400);
         }
     }
 }
