@@ -57,14 +57,18 @@ class Game {
     handleInteraction(button) {
         console.log(button);
         button.disabled = 'true';
+        button.style.transition = 'transform 1s ease-in';
         if(this.activePhrase.checkLetter(button.innerText)) {
             button.classList.add('chosen');
+            button.style.transform = 'scale(2,2)';
+            setTimeout(() => button.style.transform = 'none', 300);
             this.activePhrase.showMatchedLetter(button.innerText);
             if(this.checkForWin()) {
                 this.gameOver(true);
             }
         } else {
             button.classList.add('wrong');
+            button.style.transform = 'scale(0,0)';
             this.removeLife();
         }
         
@@ -109,10 +113,12 @@ class Game {
             message.innerText = 'You Win!';
             overlay.setAttribute('class', 'win');
             this.resetGame();
+            document.removeEventListener('keyup', keyupHandler);
         } else {
             message.innerText = 'You Lose!';
             overlay.setAttribute('class', 'lose');
             this.resetGame();
+            document.removeEventListener('keyup', keyupHandler);
         }
     }
 
@@ -127,6 +133,7 @@ class Game {
         for(let i = 0; i < btn.length; i++) {
             btn[i].setAttribute('class', 'key');
             btn[i].removeAttribute('disabled');
+            btn[i].style.transform = 'initial';
         }
         const img = document.querySelectorAll('.tries img');
         for(let i = 0; i < img.length; i++) {

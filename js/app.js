@@ -8,6 +8,7 @@ const qwerty = document.getElementById('qwerty');
 document.getElementById('btn__reset').addEventListener('click', function() {
     game = new Game;
     game.startGame();
+    document.addEventListener('keyup', keyupHandler);
     console.log(game.activePhrase.phrase);
 });
 
@@ -17,12 +18,19 @@ qwerty.addEventListener('click', function(e) {
     }
 });
 
-document.addEventListener('keyup', function(e) {
+const keyupHandler = (e) => {
+    console.log(e.key);
     const letters = document.getElementsByClassName('key');
     for(let i = 0; i < letters.length; i++) {
-        if(letters[i].textContent === e.key) {
+        if(letters[i].textContent === e.key && letters[i].disabled === false) {
             game.handleInteraction(letters[i]);
         }
-    }   
-});
+    }  
+}
+
+
+
+
+
+
 
