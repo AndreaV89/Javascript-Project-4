@@ -9,7 +9,6 @@ document.getElementById('btn__reset').addEventListener('click', function() {
     game = new Game;
     game.startGame();
     document.addEventListener('keyup', keyupHandler);
-    console.log(game.activePhrase.phrase);
 });
 
 qwerty.addEventListener('click', function(e) {

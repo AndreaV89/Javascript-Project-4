@@ -12,7 +12,7 @@ class Game {
 
     /**
      * Creates phrases for use in game
-     * @return {array} An array of phrases that could be used in the game
+     * @return {array}  phrasesArray - An array of phrases that could be used in the game
      */
     createPhrases() {
         const phrasesArray = ['Life is like a box of chocolates',
@@ -20,7 +20,6 @@ class Game {
                               'Tomorrow is another day',
                               'Seize the day',
                               'Houston we have a problem'];
-        
         return phrasesArray;
     };
 
@@ -52,12 +51,13 @@ class Game {
 
     /**
      * Handles onscreen keyboard button clicks
-     * @param (HTMLButtonElement) button - The clicked button element
+     * @param {HTMLButtonElement} button - The clicked button element
      */
     handleInteraction(button) {
-        console.log(button);
+        // Disables the selected letter on the keyboard
         button.disabled = 'true';
         if(this.activePhrase.checkLetter(button.innerText)) {
+            // If the letter chosen is in the phrase give the 'chosen' class to the button, show the letter and checks for win
             button.classList.add('chosen');
             button.style.transition = 'transform 1s ease-in';
             button.style.transform = 'scale(2,2)';
@@ -67,12 +67,12 @@ class Game {
                 this.gameOver(true);
             }
         } else {
+            // If the letter chosen isn't in the phrase give the 'wrong' class to the button and remove a life
             button.classList.add('wrong');
-            button.style.transition = 'all .5s ease-in';
-            button.style.transform = 'rotateY(360deg)';
+            button.style.transition = 'all .05s ease-in';
+            this.shake(button);
             this.removeLife();
-        }
-        
+        }     
     }
 
     /**
@@ -132,13 +132,30 @@ class Game {
         this.missed = 0;
         const btn = document.querySelectorAll('.keyrow button');
         for(let i = 0; i < btn.length; i++) {
+            // Reset button styles
             btn[i].setAttribute('class', 'key');
             btn[i].removeAttribute('disabled');
             btn[i].style.transform = 'initial';
         }
         const img = document.querySelectorAll('.tries img');
         for(let i = 0; i < img.length; i++) {
+            // Reset lifes
             img[i].setAttribute('src', 'images/liveHeart.png');
         }
+    }
+
+    /**
+     * Shake the button if the letter is wrong
+     * @param {HTMLButtonElement} button - The button to shake 
+     */
+    shake(button) {
+        button.style.transform = 'rotate(10deg)';
+        setTimeout(() => button.style.transform = 'rotate(-15deg)', 50);
+        setTimeout(() => button.style.transform = 'rotate(15deg)', 100);
+        setTimeout(() => button.style.transform = 'rotate(-15deg)', 150);
+        setTimeout(() => button.style.transform = 'rotate(15deg)', 200);
+        setTimeout(() => button.style.transform = 'rotate(-15deg)', 250);
+        setTimeout(() => button.style.transform = 'rotate(15deg)', 300);
+        setTimeout(() => button.style.transform = 'none', 350); 
     }
 }
